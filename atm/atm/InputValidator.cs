@@ -77,4 +77,19 @@ public class InputValidator
 
         return true;
     }
+
+    public int ConvertOptionIndex(string optionIndex, int minIndex, int maxIndex)
+    {
+        if (!Int32.TryParse(optionIndex, out int validOptionIndex))
+        {
+            throw new Exception($"Invalid option. You must select options {minIndex}-{maxIndex}");
+        }
+
+        if (minIndex < 1 || maxIndex > 5)
+        {
+            throw new Exception($"Invalid option. You must select options {minIndex}-{maxIndex}");
+        }
+
+        return validOptionIndex;
+    }
 }

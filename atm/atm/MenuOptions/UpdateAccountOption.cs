@@ -4,6 +4,7 @@ public class UpdateAccountOption(DBConnection inDb, InputValidator inInputValida
 {
     protected override void Run()
     {
+        Console.Write("Enter the Account Number: ");
         string accountNumber = Console.ReadLine();
         int validAccountNumber = _inputValidator.ConvertAccountNumber(accountNumber);
 

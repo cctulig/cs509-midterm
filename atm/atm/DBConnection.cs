@@ -39,7 +39,7 @@ public class DBConnection
         createUserParameters.Add("pin", pin, DbType.Int32, ParameterDirection.Input);
         createUserParameters.Add("adminAccount", false, DbType.Boolean, ParameterDirection.Input);
         
-        TryExecute("INSERT INTO userlogin (login, pin, adminAccount) VALUES (@login, @pin, @adminAccount)", createUserParameters, "Unable to create user account");
+        TryExecute("INSERT INTO userlogin (login, pin, adminAccount) VALUES (@login, @pin, @adminAccount);", createUserParameters, "Unable to create user account");
 
         UserLoginData userLoginData = GetUserLogin(login, pin);
         
@@ -49,7 +49,7 @@ public class DBConnection
         createCustomerParameters.Add("balance", startingBalance, DbType.Int32, ParameterDirection.Input);
         createCustomerParameters.Add("active", active, DbType.Boolean, ParameterDirection.Input);
         
-        TryExecute("INSERT INTO customer (id, name, balance, active) VALUES (@id, @name, @balance, @active)", createCustomerParameters, "Unable to create customer account");
+        TryExecute("INSERT INTO customer (id, name, balance, active) VALUES (@id, @name, @balance, @active);", createCustomerParameters, "Unable to create customer account");
 
         return userLoginData.Id;
     }
@@ -59,8 +59,8 @@ public class DBConnection
         var deleteUserParameters = new DynamicParameters();
         deleteUserParameters.Add("id", accountNumber, DbType.Int32, ParameterDirection.Input);
 
-        TryExecute("DELETE FROM customer WHERE id=@id", deleteUserParameters, $"Unable to delete user with account number {accountNumber}");
-        TryExecute("DELETE FROM userlogin WHERE id=@id", deleteUserParameters, $"Unable to delete customer with account number {accountNumber}");
+        TryExecute("DELETE FROM customer WHERE id=@id;", deleteUserParameters, $"Unable to delete user with account number {accountNumber}");
+        TryExecute("DELETE FROM userlogin WHERE id=@id;", deleteUserParameters, $"Unable to delete customer with account number {accountNumber}");
     }
 
     public bool ValidAccountNumber(int accountNumber)
@@ -89,7 +89,7 @@ public class DBConnection
         updateUserParameters.Add("login", login, DbType.String, ParameterDirection.Input);
         updateUserParameters.Add("pin", pin, DbType.Int32, ParameterDirection.Input);
         
-        TryExecute("UPDATE userlogin set login=@login AND pin=@pin WHERE id=@id", updateUserParameters, $"Unable to update account number {accountNumber}");
+        TryExecute("UPDATE userlogin set login=@login, pin=@pin WHERE id=@id;", updateUserParameters, $"Unable to update account number {accountNumber}");
 
         UserLoginData userLoginData = GetUserLogin(login, pin);
         
@@ -98,7 +98,7 @@ public class DBConnection
         updateCustomerParameters.Add("name", name, DbType.String, ParameterDirection.Input);
         updateCustomerParameters.Add("active", active, DbType.Boolean, ParameterDirection.Input);
         
-        TryExecute("UPDATE customer set name=@name AND active=@active WHERE id=@id", updateCustomerParameters, $"Unable to update account number {accountNumber}");
+        TryExecute("UPDATE customer set name=@name, active=@active WHERE id=@id;", updateCustomerParameters, $"Unable to update account number {accountNumber}");
     }
 
     public CustomerData GetCustomer(int accountNumber)
@@ -115,7 +115,7 @@ public class DBConnection
         updateCustomerParameters.Add("id", accountNumber, DbType.Int32, ParameterDirection.Input);
         updateCustomerParameters.Add("balance", newBalance, DbType.Int32, ParameterDirection.Input);
         
-        TryExecute("UPDATE customer set balance=@balance WHERE id=@id", updateCustomerParameters, $"Unable to update balance for account number {accountNumber}");
+        TryExecute("UPDATE customer set balance=@balance WHERE id=@id;", updateCustomerParameters, $"Unable to update balance for account number {accountNumber}");
 
         return newBalance;
     }

@@ -20,52 +20,37 @@ class Program
         
         while (true)
         {
-            switch(loginState) { 
-                case LoginState.SIGNED_OUT:
-                    Console.WriteLine("Sign in!");
+            Console.WriteLine("Sign in!");
 
-                    Console.WriteLine("Enter login:");
-                    string login = Console.ReadLine();
+            Console.Write("Enter login: ");
+            string login = Console.ReadLine();
 
-                    Console.WriteLine("Enter Pin code:");
-                    string pinStr = Console.ReadLine();
-                    
-                    if (!Int32.TryParse(pinStr, out int pin))
-                    {
-                        Console.WriteLine("Pin must be a number");
-                        continue;
-                    }
+            Console.Write("Enter Pin code: ");
+            string pinStr = Console.ReadLine();
+            
+            if (!Int32.TryParse(pinStr, out int pin))
+            {
+                Console.WriteLine("Pin must be a number");
+                continue;
+            }
 
-                    try
-                    {
-                        UserLoginData userLoginData = dbConnection.GetUserLogin(login, pin);
-                        
-                        if (userLoginData.adminAccount)
-                        {
-                            userPage = new AdminPage(new Admin());
-                        }
-                        else
-                        {
-                            userPage = new CustomerPage(new Customer());
-                        }
-                        loginState = LoginState.SIGNED_IN;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                    
-                    break;
-                case LoginState.SIGNED_IN:
-                    if (userPage != null)
-                    {
-                        loginState = userPage.RunUserStateMachine();
-                    }
-                    else
-                    {
-                        loginState = LoginState.SIGNED_OUT;
-                    }
-                    break;
+            try
+            {
+                UserLoginData userLoginData = dbConnection.GetUserLogin(login, pin);
+                
+                if (userLoginData.adminAccount)
+                {
+                    userPage = new AdminPage();
+                }
+                else
+                {
+                    userPage = new CustomerPage(userLoginData.Id);
+                }
+                userPage.Run();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }

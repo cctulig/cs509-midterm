@@ -5,17 +5,13 @@ public abstract class MenuOption(DBConnection inDb, InputValidator inInputValida
 {
     protected DBConnection _db = inDb;
     protected InputValidator _inputValidator = inInputValidator;
+    protected LoginState _loginState = LoginState.SIGNED_IN;
 
-    public void TryRun()
+    public LoginState TryRun()
     {
-        try
-        {
-            Run();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
+       Run();
+
+        return _loginState;
     }
 
     protected abstract void Run();
