@@ -40,7 +40,6 @@ public class CustomerPage : UserPage
     
     private void Home()
     {
-        // Assume admin for now
         Console.WriteLine("1----Withdraw Cash\n2----Deposit Cash\n3----Display Balance\n4----Exit");
         string stringCustomerState = Console.ReadLine();
         int intCustomerState;

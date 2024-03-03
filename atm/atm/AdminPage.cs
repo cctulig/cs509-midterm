@@ -43,7 +43,6 @@ public class AdminPage : UserPage
 
     private void Home()
     {
-        // Assume admin for now
         Console.WriteLine("1----Create New Account\r\n2----Delete Existing Account\r\n3----Update Account Information\r\n4----Search for Account\r\n5----Exit\r\n");
         string stringAdminState = Console.ReadLine();
         int intAdminState;
