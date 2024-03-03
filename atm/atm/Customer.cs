@@ -1,6 +1,6 @@
 namespace atm;
 
-public class Customer
+public class Customer : User
 {
     private int _accountNumber = 12;
     private string _name = "test";
@@ -56,6 +56,11 @@ public class Customer
     public void DisplayBalance()
     {
         Console.WriteLine($"Account #{_accountNumber}\nDate: 01/29/2024\nBalance: {_balance}");
+    }
+    
+    public void DisplayAccountInformation()
+    {
+        Console.WriteLine($"Account # {_accountNumber}\nHolder: {_name}\nBalance: {_balance}\nStatus: {_active}\nLogin: {_username}\nPin Code: {_pin}");
     }
 
     private void UpdateCustomerData()

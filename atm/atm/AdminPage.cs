@@ -10,8 +10,9 @@ enum AdminState
     EXIT
 }
 
-public class AdminPage : UserPage
+public class AdminPage(Admin inAdmin) : UserPage
 {
+    private Admin _admin = inAdmin;
     private AdminState _adminState = AdminState.HOME;
 
     public override LoginState RunUserStateMachine()
@@ -64,29 +65,66 @@ public class AdminPage : UserPage
     
     private void CreateAccount()
     {
-        Console.WriteLine("Create New Account");
-        string input = Console.ReadLine();
+        Console.WriteLine("Login: ");
+        string login = Console.ReadLine();
+        
+        Console.WriteLine("Pin Code: ");
+        string pin = Console.ReadLine();
+        
+        Console.WriteLine("Holders Name: ");
+        string name = Console.ReadLine();
+        
+        Console.WriteLine("Starting Balance: ");
+        string startingBalance = Console.ReadLine();
+        
+        Console.WriteLine("Status: ");
+        string status = Console.ReadLine();
+        
+        _admin.CreateAccount(login, pin, name, startingBalance, status);
+        
         _adminState = AdminState.HOME;
     }
     
     private void DeleteAccount()
     {
         Console.WriteLine("Delete Existing Account");
-        string input = Console.ReadLine();
+        string accountNumber = Console.ReadLine();
+        _admin.DeleteAccount(accountNumber);
         _adminState = AdminState.HOME;
     }
     
     private void UpdateAccount()
     {
-        Console.WriteLine("Update Account Information");
-        string input = Console.ReadLine();
+        Console.WriteLine("Enter the Account Number: ");
+        string accountNumber = Console.ReadLine();
+        int validAccountNumber = _admin.ValidAccountNumber(accountNumber);
+        if (validAccountNumber >= 0)
+        {
+            Console.WriteLine("Login: ");
+            string login = Console.ReadLine();
+        
+            Console.WriteLine("Pin Code: ");
+            string pin = Console.ReadLine();
+        
+            Console.WriteLine("Holders Name: ");
+            string name = Console.ReadLine();
+
+            _admin.PrintAccountBalance(validAccountNumber);
+        
+            Console.WriteLine("Status: ");
+            string status = Console.ReadLine();
+            
+            _admin.UpdateAccount(validAccountNumber, login, pin, name, status);
+        }
+        
         _adminState = AdminState.HOME;
     }
     
     private void SearchAccount()
     {
-        Console.WriteLine("Search for Account");
-        string input = Console.ReadLine();
+        Console.WriteLine("Enter Account number: ");
+        string accountNumber = Console.ReadLine();
+        _admin.SearchForAccount(accountNumber);
         _adminState = AdminState.HOME;
     }
     

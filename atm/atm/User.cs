@@ -2,6 +2,6 @@ namespace atm;
 
 public abstract class User
 {
-    private string username;
-    private int pin;
+    protected string _username;
+    protected int _pin;
 }
