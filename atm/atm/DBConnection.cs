@@ -3,11 +3,11 @@ using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
 
-public class DB
+public class DBConnection
 {
     private MySqlConnection _connection;
     
-    public DB()
+    public DBConnection()
     {
         string connStr = "server=localhost;user=root;database=cs509midterm;port=3306;password=a";
         _connection = new MySqlConnection(connStr);
@@ -18,18 +18,28 @@ public class DB
         var getUserParameters = new DynamicParameters();
         getUserParameters.Add("login", login, DbType.String, ParameterDirection.Input);
         getUserParameters.Add("pin", pin, DbType.Int32, ParameterDirection.Input);
-        
-        return _connection.QueryFirst<UserLoginData>("SELECT * FROM userlogin WHERE login=@login AND pin=@pin;", getUserParameters);
+
+        return TryQueryFirst<UserLoginData>("SELECT * FROM userlogin WHERE login=@login AND pin=@pin;", getUserParameters,
+            "Unable to find user");
     }
     
-    public void CreateAccount(string login, int pin, string name, int startingBalance, bool active)
+    public UserLoginData GetUserLogin(int accountNumber)
+    {
+        var getUserParameters = new DynamicParameters();
+        getUserParameters.Add("id", accountNumber, DbType.Int32, ParameterDirection.Input);
+
+        return TryQueryFirst<UserLoginData>("SELECT * FROM userlogin WHERE id=@id;", getUserParameters,
+            "Unable to find user");
+    }
+    
+    public int CreateAccount(string login, int pin, string name, int startingBalance, bool active)
     {
         var createUserParameters = new DynamicParameters();
         createUserParameters.Add("login", login, DbType.String, ParameterDirection.Input);
         createUserParameters.Add("pin", pin, DbType.Int32, ParameterDirection.Input);
         createUserParameters.Add("adminAccount", false, DbType.Boolean, ParameterDirection.Input);
         
-        _connection.Execute("INSERT INTO userlogin (login, pin, adminAccount) VALUES (@login, @pin, @adminAccount)", createUserParameters);
+        TryExecute("INSERT INTO userlogin (login, pin, adminAccount) VALUES (@login, @pin, @adminAccount);", createUserParameters, "Unable to create user account");
 
         UserLoginData userLoginData = GetUserLogin(login, pin);
         
@@ -39,7 +49,9 @@ public class DB
         createCustomerParameters.Add("balance", startingBalance, DbType.Int32, ParameterDirection.Input);
         createCustomerParameters.Add("active", active, DbType.Boolean, ParameterDirection.Input);
         
-        _connection.Execute("INSERT INTO customer (id, name, balance, active) VALUES (@id, @name, @balance, @active)", createCustomerParameters);
+        TryExecute("INSERT INTO customer (id, name, balance, active) VALUES (@id, @name, @balance, @active);", createCustomerParameters, "Unable to create customer account");
+
+        return userLoginData.Id;
     }
 
     public void DeleteAccount(int accountNumber)
@@ -47,8 +59,8 @@ public class DB
         var deleteUserParameters = new DynamicParameters();
         deleteUserParameters.Add("id", accountNumber, DbType.Int32, ParameterDirection.Input);
 
-        _connection.Execute("DELETE FROM customer WHERE id=@id", deleteUserParameters);
-        _connection.Execute("DELETE FROM userlogin WHERE id=@id", deleteUserParameters);
+        TryExecute("DELETE FROM customer WHERE id=@id;", deleteUserParameters, $"Unable to delete user with account number {accountNumber}");
+        TryExecute("DELETE FROM userlogin WHERE id=@id;", deleteUserParameters, $"Unable to delete customer with account number {accountNumber}");
     }
 
     public bool ValidAccountNumber(int accountNumber)
@@ -56,7 +68,7 @@ public class DB
         var getUserParameters = new DynamicParameters();
         getUserParameters.Add("id", accountNumber, DbType.Int32, ParameterDirection.Input);
         
-        _connection.QueryFirst<UserLoginData>("SELECT * FROM customer WHERE id=@id;", getUserParameters);
+        TryQueryFirst<UserLoginData>("SELECT * FROM customer WHERE id=@id;", getUserParameters, $"Could not find account number {accountNumber}");
 
         // Exception will be thrown if it doesnt exist, probably a better way to do this but idk databases
         return true;
@@ -67,7 +79,7 @@ public class DB
         var getUserParameters = new DynamicParameters();
         getUserParameters.Add("id", accountNumber, DbType.Int32, ParameterDirection.Input);
         
-        return _connection.QueryFirst<int>("SELECT balance FROM customer WHERE id=@id;", getUserParameters);
+        return TryQueryFirst<int>("SELECT balance FROM customer WHERE id=@id;", getUserParameters, $"Could not get account balance for account number {accountNumber}");
     }
 
     public void UpdateAccount(int accountNumber, string login, int pin, string name, bool active)
@@ -77,7 +89,7 @@ public class DB
         updateUserParameters.Add("login", login, DbType.String, ParameterDirection.Input);
         updateUserParameters.Add("pin", pin, DbType.Int32, ParameterDirection.Input);
         
-        _connection.Execute("UPDATE userlogin set login=@login AND pin=@pin WHERE id=@id", updateUserParameters);
+        TryExecute("UPDATE userlogin set login=@login, pin=@pin WHERE id=@id;", updateUserParameters, $"Unable to update account number {accountNumber}");
 
         UserLoginData userLoginData = GetUserLogin(login, pin);
         
@@ -86,7 +98,7 @@ public class DB
         updateCustomerParameters.Add("name", name, DbType.String, ParameterDirection.Input);
         updateCustomerParameters.Add("active", active, DbType.Boolean, ParameterDirection.Input);
         
-        _connection.Execute("UPDATE customer set name=@name AND active=@active WHERE id=@id", updateCustomerParameters);
+        TryExecute("UPDATE customer set name=@name, active=@active WHERE id=@id;", updateCustomerParameters, $"Unable to update account number {accountNumber}");
     }
 
     public CustomerData GetCustomer(int accountNumber)
@@ -94,15 +106,42 @@ public class DB
         var getCustomerParameters = new DynamicParameters();
         getCustomerParameters.Add("id", accountNumber, DbType.Int32, ParameterDirection.Input);
         
-        return _connection.QueryFirst<CustomerData>("SELECT * FROM customer WHERE id=@id;", getCustomerParameters);
+        return TryQueryFirst<CustomerData>("SELECT * FROM customer WHERE id=@id;", getCustomerParameters, $"Unable to get customer for account number {accountNumber}");
     }
     
-    public void UpdateCustomerBalance(int accountNumber, int newBalance)
+    public int UpdateCustomerBalance(int accountNumber, int newBalance)
     {
         var updateCustomerParameters = new DynamicParameters();
         updateCustomerParameters.Add("id", accountNumber, DbType.Int32, ParameterDirection.Input);
         updateCustomerParameters.Add("balance", newBalance, DbType.Int32, ParameterDirection.Input);
         
-        _connection.Execute("UPDATE customer set balance=@balance WHERE id=@id", updateCustomerParameters);
+        TryExecute("UPDATE customer set balance=@balance WHERE id=@id;", updateCustomerParameters, $"Unable to update balance for account number {accountNumber}");
+
+        return newBalance;
+    }
+
+    private void TryExecute(string sql, DynamicParameters parameters, string exceptionMsg)
+    {
+        try
+        {
+            _connection.Execute(sql, parameters);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(exceptionMsg);
+        }
+    }
+    
+    
+    private T TryQueryFirst<T>(string sql, DynamicParameters parameters, string exceptionMsg)
+    {
+        try
+        {
+            return _connection.QueryFirst<T>(sql, parameters);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(exceptionMsg);
+        }
     }
 }
