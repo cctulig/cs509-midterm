@@ -1,20 +1,16 @@
 namespace atm;
 
-public abstract class UserMenu
+public abstract class UserMenu : Menu
 {
     protected Dictionary<int, MenuOption> _optionMap;
-    protected DBConnection _db;
-    protected InputValidator _inputValidator;
     protected string _optionsListText;
 
-    public UserMenu()
+    public UserMenu() : base()
     {
-        _db = new DBConnection();
-        _inputValidator = new InputValidator();
         _optionMap = new Dictionary<int, MenuOption>();
     }
     
-    public void Run()
+    public override void Run()
     {
         LoginState loginState = LoginState.SIGNED_IN;
         
