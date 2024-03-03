@@ -93,6 +93,6 @@ public class AdminPage : UserPage
     
     private void Exit()
     {
-        Console.WriteLine("Logging out...");
+        Console.WriteLine("Logging out...\r\n");
     }
 }

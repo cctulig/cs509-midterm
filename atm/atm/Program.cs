@@ -31,7 +31,7 @@ class Program
                     Console.WriteLine("Enter Pin code:");
                     string password = Console.ReadLine();
 
-                    if (true)
+                    if (false)
                     {
                         userPage = new AdminPage();
                     }
