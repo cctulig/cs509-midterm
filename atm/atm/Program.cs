@@ -13,7 +13,7 @@ class Program
         LoginState loginState = LoginState.SIGNED_OUT;
         UserPage? userPage = null;
         
-        DB db = new DB();
+        DBConnection dbConnection = new DBConnection();
 
         Console.WriteLine("ATM Application");
         Console.WriteLine("------------------------");
@@ -38,7 +38,7 @@ class Program
 
                     try
                     {
-                        UserLoginData userLoginData = db.GetUserLogin(login, pin);
+                        UserLoginData userLoginData = dbConnection.GetUserLogin(login, pin);
                         
                         if (userLoginData.adminAccount)
                         {
@@ -50,9 +50,9 @@ class Program
                         }
                         loginState = LoginState.SIGNED_IN;
                     }
-                    catch (System.InvalidOperationException e)
+                    catch (Exception e)
                     {
-                        Console.WriteLine($"User not found {e.GetType()}");
+                        Console.WriteLine(e.Message);
                     }
                     
                     break;
