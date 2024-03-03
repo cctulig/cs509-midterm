@@ -29,7 +29,7 @@ public class Customer : User
         }
 
         _balance -= withdrawAmount;
-        UpdateCustomerData();
+        UpdateCustomerBalance();
         Console.WriteLine($"Cash Successfully Withdrawn\nAccount #{_accountNumber}\nDate: 01/29/2024\nWithdrawn: {withdrawAmount}\nBalance: {_balance}");
     }
     
@@ -49,7 +49,7 @@ public class Customer : User
         }
         
         _balance += depositAmount;
-        UpdateCustomerData();
+        UpdateCustomerBalance();
         Console.WriteLine($"Cash Deposited Successfully.\nAccount #{_accountNumber}\nDate: 01/29/2024\nDeposited: {depositAmount}\nBalance: {_balance}");
     }
     
@@ -63,7 +63,7 @@ public class Customer : User
         Console.WriteLine($"Account # {_accountNumber}\nHolder: {_name}\nBalance: {_balance}\nStatus: {_active}\nLogin: {_username}\nPin Code: {_pin}");
     }
 
-    private void UpdateCustomerData()
+    private void UpdateCustomerBalance()
     {
         // Database stuff
     }

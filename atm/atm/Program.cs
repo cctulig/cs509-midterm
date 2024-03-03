@@ -1,15 +1,10 @@
-﻿using Dapper;
-using MySql.Data.MySqlClient;
-using System.Data;
-using atm;
+﻿using atm;
 
 public enum LoginState
 {
     SIGNED_OUT,
     SIGNED_IN
 }
-
-public record UserLogin(int Id, string login, int pin, bool adminAccount);
 
 class Program
 {
@@ -18,8 +13,7 @@ class Program
         LoginState loginState = LoginState.SIGNED_OUT;
         UserPage? userPage = null;
         
-        string connStr = "server=localhost;user=root;database=cs509midterm;port=3306;password=a";
-        using var connection = new MySqlConnection(connStr);
+        DB db = new DB();
 
         Console.WriteLine("ATM Application");
         Console.WriteLine("------------------------");
@@ -41,17 +35,12 @@ class Program
                         Console.WriteLine("Pin must be a number");
                         continue;
                     }
-                    
-                    var getUserParameters = new DynamicParameters();
-                    getUserParameters.Add("login", login, DbType.String, ParameterDirection.Input);
-                    getUserParameters.Add("pin", pin, DbType.Int32, ParameterDirection.Input);
 
                     try
                     {
-                        UserLogin userLogin = connection.QueryFirst<UserLogin>(
-                            "SELECT * FROM userlogin WHERE login=@login AND pin=@pin;", getUserParameters);
+                        UserLoginData userLoginData = db.GetUserLogin(login, pin);
                         
-                        if (userLogin.adminAccount)
+                        if (userLoginData.adminAccount)
                         {
                             userPage = new AdminPage(new Admin());
                         }
@@ -61,9 +50,9 @@ class Program
                         }
                         loginState = LoginState.SIGNED_IN;
                     }
-                    catch (Exception e)
+                    catch (System.InvalidOperationException e)
                     {
-                        Console.WriteLine("User not found");
+                        Console.WriteLine($"User not found {e.GetType()}");
                     }
                     
                     break;
