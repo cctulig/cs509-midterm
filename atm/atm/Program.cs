@@ -1,15 +1,10 @@
-﻿using Dapper;
-using MySql.Data.MySqlClient;
-using System.Data;
-using atm;
+﻿using atm;
 
 public enum LoginState
 {
     SIGNED_OUT,
     SIGNED_IN
 }
-
-
 
 class Program
 {
@@ -18,9 +13,6 @@ class Program
         LoginState loginState = LoginState.SIGNED_OUT;
         UserPage? userPage = null;
         
-        string connStr = "server=localhost;user=root;database=cs509midterm;port=3306;password=a";
-        using var connection = new MySqlConnection(connStr);
-
         DB db = new DB();
 
         Console.WriteLine("ATM Application");
