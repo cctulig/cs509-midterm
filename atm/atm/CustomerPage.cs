@@ -10,8 +10,9 @@ enum CustomerState
     EXIT
 }
 
-public class CustomerPage : UserPage
+public class CustomerPage(Customer inCustomer) : UserPage
 {
+    private Customer _customer = inCustomer;
     private CustomerState _customerState = CustomerState.HOME;
 
     public override LoginState RunUserStateMachine()
@@ -40,10 +41,11 @@ public class CustomerPage : UserPage
     
     private void Home()
     {
-        Console.WriteLine("1----Withdraw Cash\n2----Deposit Cash\n3----Display Balance\n4----Exit");
+        Console.WriteLine("\n1----Withdraw Cash\n2----Deposit Cash\n3----Display Balance\n4----Exit");
         string stringCustomerState = Console.ReadLine();
-        int intCustomerState;
+        Console.WriteLine();
         
+        int intCustomerState;
         if (!Int32.TryParse(stringCustomerState, out intCustomerState))
         {
             Console.WriteLine("Invalid option. You must select options 1-4");
@@ -61,22 +63,26 @@ public class CustomerPage : UserPage
     
     private void WithdrawCash()
     {
-        Console.WriteLine("Withdraw Cash");
-        string input = Console.ReadLine();
+        Console.WriteLine("Enter the withdrawal amount: ");
+        string cash = Console.ReadLine();
+        Console.WriteLine();
+        _customer.WithdrawCash(cash);
         _customerState = CustomerState.HOME;
     }
     
     private void DepositCash()
     {
-        Console.WriteLine("Deposit Cash");
-        string input = Console.ReadLine();
+        Console.WriteLine("Enter the cash amount to deposit: ");
+        string cash = Console.ReadLine();
+        Console.WriteLine();
+        _customer.DepositCash(cash);
         _customerState = CustomerState.HOME;
     }
     
     private void DisplayBalance()
     {
-        Console.WriteLine("Display Balance");
-        string input = Console.ReadLine();
+        Console.WriteLine();
+        _customer.DisplayBalance();
         _customerState = CustomerState.HOME;
     }
 

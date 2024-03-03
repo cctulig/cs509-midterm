@@ -37,7 +37,7 @@ class Program
                     }
                     else
                     {
-                        userPage = new CustomerPage();
+                        userPage = new CustomerPage(new Customer());
                     }
                     loginState = LoginState.SIGNED_IN;
                     break;
