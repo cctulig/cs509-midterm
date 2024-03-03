@@ -10,8 +10,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        LoginState loginState = LoginState.SIGNED_OUT;
-        UserPage? userPage = null;
+        UserMenu? userPage = null;
         
         DBConnection dbConnection = new DBConnection();
 
@@ -40,11 +39,11 @@ class Program
                 
                 if (userLoginData.adminAccount)
                 {
-                    userPage = new AdminPage();
+                    userPage = new AdminMenu();
                 }
                 else
                 {
-                    userPage = new CustomerPage(userLoginData.Id);
+                    userPage = new CustomerMenu(userLoginData.Id);
                 }
                 userPage.Run();
             }
