@@ -1,3 +1,5 @@
+using atm.Exceptions;
+
 namespace atm;
 
 public class LoginMenu : Menu
@@ -26,7 +28,7 @@ public class LoginMenu : Menu
                     userMenu = new CustomerMenu(userLoginData.Id);
                 }
             }
-            catch (Exception e)
+            catch (ATMException e)
             {
                 Console.WriteLine(e.Message);
                 continue;

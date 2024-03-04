@@ -1,3 +1,5 @@
+using atm.Exceptions;
+
 namespace atm;
 
 public abstract class UserMenu : Menu
@@ -22,7 +24,7 @@ public abstract class UserMenu : Menu
                 int validOptionindex = inputValidator.ConvertOptionIndex(optionIndex, 1, _optionMap.Count);
                 loginState = _optionMap[validOptionindex].TryRun();
             }
-            catch (Exception e)
+            catch (ATMException e)
             {
                 Console.WriteLine(e.Message);
             }

@@ -128,7 +128,7 @@ public class DBConnection : IDBConnection
         }
         catch (Exception e)
         {
-            throw new Exception(exceptionMsg);
+            throw new DatabaseException(exceptionMsg);
         }
     }
     
@@ -141,7 +141,7 @@ public class DBConnection : IDBConnection
         }
         catch (Exception e)
         {
-            throw new Exception(exceptionMsg);
+            throw new DatabaseException(exceptionMsg);
         }
     }
 }

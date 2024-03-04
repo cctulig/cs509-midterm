@@ -6,7 +6,7 @@ public class InputValidator : IInputValidator
     {
         if (!Int32.TryParse(accountNumber, out int validAccountNumber))
         {
-            throw new Exception("Account number must be a number");
+            throw new InvalidInputException("Account number must be a number");
         }
 
         return validAccountNumber;
@@ -16,7 +16,7 @@ public class InputValidator : IInputValidator
     {
         if (!accountNumber1.Equals(accountNumber2))
         {
-            throw new Exception("Second account number does not match first account number");
+            throw new InvalidInputException("Second account number does not match first account number");
         }
 
         return true;
@@ -26,12 +26,12 @@ public class InputValidator : IInputValidator
     {
         if (!Int32.TryParse(pin, out int validPin))
         {
-            throw new Exception("Pin must be a number");
+            throw new InvalidInputException("Pin must be a number");
         }
         
         if (validPin < 10000 || validPin > 99999)
         {
-            throw new Exception("Pin must be between 10000 and 99999");
+            throw new InvalidInputException("Pin must be between 10000 and 99999");
         }
 
         return validPin;
@@ -41,12 +41,12 @@ public class InputValidator : IInputValidator
     {
         if (!Int32.TryParse(balance, out int validBalance))
         {
-            throw new Exception("Balance must be a number");
+            throw new InvalidInputException("Balance must be a number");
         }
         
         if (validBalance < 0)
         {
-            throw new Exception("Balance must be at least 0");
+            throw new InvalidInputException("Balance must be at least 0");
         }
 
         return validBalance;
@@ -64,7 +64,7 @@ public class InputValidator : IInputValidator
         }
         else
         {
-            throw new Exception("Status must either be 'Active' or 'Disabled'");
+            throw new InvalidInputException("Status must either be 'Active' or 'Disabled'");
         }
     }
 
@@ -72,7 +72,7 @@ public class InputValidator : IInputValidator
     {
         if (withdrawAmount > balance)
         {
-            throw new Exception("Withdrawn amount exceeds current balance");
+            throw new InvalidInputException("Withdrawn amount exceeds current balance");
         }
 
         return true;
@@ -82,12 +82,12 @@ public class InputValidator : IInputValidator
     {
         if (!Int32.TryParse(optionIndex, out int validOptionIndex))
         {
-            throw new Exception($"Invalid option. You must select options {minIndex}-{maxIndex}");
+            throw new InvalidInputException($"Invalid option. You must select options {minIndex}-{maxIndex}");
         }
 
         if (minIndex < 1 || maxIndex > 5)
         {
-            throw new Exception($"Invalid option. You must select options {minIndex}-{maxIndex}");
+            throw new InvalidInputException($"Invalid option. You must select options {minIndex}-{maxIndex}");
         }
 
         return validOptionIndex;
