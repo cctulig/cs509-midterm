@@ -38,18 +38,13 @@ public class DBConnection : IDBConnection
         createUserParameters.Add("login", login, DbType.String, ParameterDirection.Input);
         createUserParameters.Add("pin", pin, DbType.Int32, ParameterDirection.Input);
         createUserParameters.Add("adminAccount", false, DbType.Boolean, ParameterDirection.Input);
+        createUserParameters.Add("name", name, DbType.String, ParameterDirection.Input);
+        createUserParameters.Add("balance", startingBalance, DbType.Int32, ParameterDirection.Input);
+        createUserParameters.Add("active", active, DbType.Boolean, ParameterDirection.Input);
         
-        TryExecute("INSERT INTO userlogin (login, pin, adminAccount) VALUES (@login, @pin, @adminAccount);", createUserParameters, "Unable to create user account");
+        TryExecute("BEGIN; INSERT INTO userlogin (login, pin, adminAccount) VALUES(@login, @pin, @adminAccount); INSERT INTO customer (id, name, balance, active) VALUES(LAST_INSERT_ID(),@name, @balance, @active); COMMIT;", createUserParameters, "Unable to create customer account");
 
         UserLoginData userLoginData = GetUserLogin(login, pin);
-        
-        var createCustomerParameters = new DynamicParameters();
-        createCustomerParameters.Add("id", userLoginData.Id, DbType.Int32, ParameterDirection.Input);
-        createCustomerParameters.Add("name", name, DbType.String, ParameterDirection.Input);
-        createCustomerParameters.Add("balance", startingBalance, DbType.Int32, ParameterDirection.Input);
-        createCustomerParameters.Add("active", active, DbType.Boolean, ParameterDirection.Input);
-        
-        TryExecute("INSERT INTO customer (id, name, balance, active) VALUES (@id, @name, @balance, @active);", createCustomerParameters, "Unable to create customer account");
 
         return userLoginData.Id;
     }
@@ -59,8 +54,7 @@ public class DBConnection : IDBConnection
         var deleteUserParameters = new DynamicParameters();
         deleteUserParameters.Add("id", accountNumber, DbType.Int32, ParameterDirection.Input);
 
-        TryExecute("DELETE FROM customer WHERE id=@id;", deleteUserParameters, $"Unable to delete user with account number {accountNumber}");
-        TryExecute("DELETE FROM userlogin WHERE id=@id;", deleteUserParameters, $"Unable to delete customer with account number {accountNumber}");
+        TryExecute("BEGIN; DELETE FROM customer WHERE id=@id; DELETE FROM userlogin WHERE id=@id; COMMIT;", deleteUserParameters, $"Unable to delete user with account number {accountNumber}");
     }
 
     public bool ValidAccountNumber(int accountNumber)
