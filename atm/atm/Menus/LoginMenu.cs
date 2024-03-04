@@ -1,6 +1,6 @@
 namespace atm;
 
-public class LoginMenu : Menu
+public class LoginMenu : Menu, ILoginMenu
 {
     public override void Run()
     {

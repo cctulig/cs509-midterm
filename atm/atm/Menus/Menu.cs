@@ -1,6 +1,6 @@
 namespace atm;
 
-public abstract class Menu
+public abstract class Menu : IMenu
 {
     protected DBConnection _db;
     protected InputValidator _inputValidator;
