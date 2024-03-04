@@ -18,4 +18,6 @@ public interface IDBConnection
     public CustomerData GetCustomer(int accountNumber);
 
     public int UpdateCustomerBalance(int accountNumber, int newBalance);
+
+    public UserLoginData AttemptSignIn(string login, int pin);
 }

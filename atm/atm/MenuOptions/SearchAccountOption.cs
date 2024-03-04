@@ -10,6 +10,18 @@ public class SearchAccountOption : MenuOption
         CustomerData customer = db.GetCustomer(validAccountNumber);
         UserLoginData userLoginData = db.GetUserLogin(validAccountNumber);
         
-        Console.WriteLine($"Account # {customer.Id}\nHolder: {customer.name}\nBalance: {customer.balance}\nActive: {customer.active}\nLogin: {userLoginData.login}\nPin Code: {userLoginData.pin}");
+        Console.WriteLine($"Account # {customer.Id}\nHolder: {customer.name}\nBalance: {customer.balance}\nActive: {FormatActive(customer.active)}\nLogin: {userLoginData.login}\nPin Code: {userLoginData.pin}");
+    }
+
+    private string FormatActive(bool active)
+    {
+        if (active)
+        {
+            return "Active";
+        }
+        else
+        {
+            return "Disabled";
+        }
     }
 }

@@ -91,7 +91,7 @@ public class DBConnection : IDBConnection
         
         TryExecute("UPDATE userlogin set login=@login, pin=@pin WHERE id=@id;", updateUserParameters, $"Unable to update account number {accountNumber}");
 
-        UserLoginData userLoginData = GetUserLogin(login, pin);
+        UserLoginData userLoginData = GetUserLogin(accountNumber);
         
         var updateCustomerParameters = new DynamicParameters();
         updateCustomerParameters.Add("id", userLoginData.Id, DbType.Int32, ParameterDirection.Input);
@@ -118,6 +118,25 @@ public class DBConnection : IDBConnection
         TryExecute("UPDATE customer set balance=@balance WHERE id=@id;", updateCustomerParameters, $"Unable to update balance for account number {accountNumber}");
 
         return newBalance;
+    }
+    
+    public UserLoginData AttemptSignIn(string login, int pin)
+    {
+        UserLoginData loginData = GetUserLogin(login, pin);
+
+        if (loginData.adminAccount)
+        {
+            return loginData;
+        }
+
+        CustomerData customerData = GetCustomer(loginData.Id);
+
+        if (customerData.active)
+        {
+            return loginData;
+        }
+        
+        throw new DatabaseException("Unable to find user");
     }
 
     private void TryExecute(string sql, DynamicParameters parameters, string exceptionMsg)

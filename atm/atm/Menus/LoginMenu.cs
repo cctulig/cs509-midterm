@@ -17,7 +17,7 @@ public class LoginMenu : Menu
             try
             {
                 int validPin = inputValidator.ConvertPIN(pin);
-                UserLoginData userLoginData = db.GetUserLogin(login, validPin);
+                UserLoginData userLoginData = db.AttemptSignIn(login, validPin);
                 
                 if (userLoginData.adminAccount)
                 {
