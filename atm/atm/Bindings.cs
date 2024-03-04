@@ -8,5 +8,6 @@ public class Bindings : NinjectModule
         Bind<IDBConnection>().To<DBConnection>();
         Bind<IInputValidator>().To<InputValidator>();
         Bind<IUserInput>().To<UserInput>();
+        Bind<IDate>().To<Date>();
     }
 }

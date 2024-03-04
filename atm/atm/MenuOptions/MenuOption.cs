@@ -6,26 +6,26 @@ namespace atm;
 // Responsible for Console Read/Write for Options
 public abstract class MenuOption
 {
-    protected IDBConnection _db;
-    protected IInputValidator _inputValidator;
-    protected IUserInput _userInput;
-    protected LoginState _loginState = LoginState.SIGNED_IN;
+    protected IDBConnection db;
+    protected IInputValidator inputValidator;
+    protected IUserInput userInput;
+    protected LoginState loginState = LoginState.SIGNED_IN;
 
     public MenuOption()
     {
         var kernel = new StandardKernel();
         kernel.Load(Assembly.GetExecutingAssembly());
         
-        _db = kernel.Get<IDBConnection>();
-        _inputValidator = kernel.Get<IInputValidator>();
-        _userInput = kernel.Get<IUserInput>();
+        db = kernel.Get<IDBConnection>();
+        inputValidator = kernel.Get<IInputValidator>();
+        userInput = kernel.Get<IUserInput>();
     }
 
     public LoginState TryRun()
     {
        Run();
 
-        return _loginState;
+        return loginState;
     }
 
     protected abstract void Run();

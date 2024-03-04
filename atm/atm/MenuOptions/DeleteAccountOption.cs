@@ -4,15 +4,15 @@ public class DeleteAccountOption : MenuOption
 {
     protected override void Run()
     {
-        string accountNumber = _userInput.TryDeleteAccountNumber();
-        int validAccountNumber = _inputValidator.ConvertAccountNumber(accountNumber);
+        string accountNumber = userInput.TryDeleteAccountNumber();
+        int validAccountNumber = inputValidator.ConvertAccountNumber(accountNumber);
 
-        CustomerData customer = _db.GetCustomer(validAccountNumber);
+        CustomerData customer = db.GetCustomer(validAccountNumber);
         
-        string accountNumber2 = _userInput.ConfirmDeleteAccountNumber(customer.name);
-        _inputValidator.AccountNumbersMatch(accountNumber, accountNumber2);
+        string accountNumber2 = userInput.ConfirmDeleteAccountNumber(customer.name);
+        inputValidator.AccountNumbersMatch(accountNumber, accountNumber2);
         
-        _db.DeleteAccount(validAccountNumber);
+        db.DeleteAccount(validAccountNumber);
         
         Console.WriteLine("Account Deleted Successfully");
     }

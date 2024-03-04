@@ -1,6 +1,3 @@
-using System.Reflection;
-using Ninject;
-
 namespace atm;
 
 public class LoginMenu : Menu
@@ -12,13 +9,13 @@ public class LoginMenu : Menu
             Console.WriteLine("--- Sign in! ---");
             UserMenu userMenu;
             
-            string login = _userInput.Login();
-            string pin = _userInput.PinCode();
+            string login = userInput.Login();
+            string pin = userInput.PinCode();
             
             try
             {
-                int validPin = _inputValidator.ConvertPIN(pin);
-                UserLoginData userLoginData = _db.GetUserLogin(login, validPin);
+                int validPin = inputValidator.ConvertPIN(pin);
+                UserLoginData userLoginData = db.GetUserLogin(login, validPin);
                 
                 if (userLoginData.adminAccount)
                 {
