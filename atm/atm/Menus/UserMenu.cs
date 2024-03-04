@@ -16,8 +16,7 @@ public abstract class UserMenu : Menu
         
         while (loginState == LoginState.SIGNED_IN)
         {
-            Console.WriteLine(_optionsListText);
-            string optionIndex = Console.ReadLine();
+            string optionIndex = _userInput.OptionIndex(_optionsListText);
             try
             {
                 int validOptionindex = _inputValidator.ConvertOptionIndex(optionIndex, 1, _optionMap.Count);

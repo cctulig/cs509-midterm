@@ -12,11 +12,8 @@ public class LoginMenu : Menu
             Console.WriteLine("--- Sign in! ---");
             UserMenu userMenu;
             
-            Console.Write("Enter login: ");
-            string login = Console.ReadLine();
-
-            Console.Write("Enter Pin code: ");
-            string pin = Console.ReadLine();
+            string login = _userInput.Login();
+            string pin = _userInput.PinCode();
             
             try
             {

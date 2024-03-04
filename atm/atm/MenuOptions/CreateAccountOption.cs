@@ -4,22 +4,17 @@ public class CreateAccountOption() : MenuOption
 {
     protected override void Run()
     {
-        Console.Write("Login: ");
-        string login = Console.ReadLine();
+        string login = _userInput.Login();
         
-        Console.Write("Pin Code: ");
-        string pin = Console.ReadLine();
+        string pin = _userInput.PinCode();
         int validPin = _inputValidator.ConvertPIN(pin);
         
-        Console.Write("Holders Name: ");
-        string name = Console.ReadLine();
+        string name = _userInput.HoldersName();
         
-        Console.Write("Starting Balance: ");
-        string startingBalance = Console.ReadLine();
+        string startingBalance = _userInput.StartingBalance();
         int validBalance = _inputValidator.ConvertBalance(startingBalance);
         
-        Console.Write("Status: ");
-        string status = Console.ReadLine();
+        string status = _userInput.Status();
         bool active = _inputValidator.ConvertStatus(status);
         
         int accountId = _db.CreateAccount(login, validPin, name, validBalance, active);

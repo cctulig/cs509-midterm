@@ -6,8 +6,7 @@ public class DepositCashOption(int inCurrentAccountNumber) : CustomerOption(inCu
     {
         int balance = _db.GetAccountBalance(_inCurrentAccountNumber);
         
-        Console.Write("Enter the cash amount to deposit: ");
-        string depositAmount = Console.ReadLine();
+        string depositAmount = _userInput.DepositAmount();
         int validDepositAmount = _inputValidator.ConvertBalance(depositAmount);
 
         int newBalance = _db.UpdateCustomerBalance(_inCurrentAccountNumber, balance + validDepositAmount);

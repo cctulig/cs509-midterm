@@ -4,26 +4,21 @@ public class UpdateAccountOption  : MenuOption
 {
     protected override void Run()
     {
-        Console.Write("Enter the Account Number: ");
-        string accountNumber = Console.ReadLine();
+        string accountNumber = _userInput.AccountNumber();
         int validAccountNumber = _inputValidator.ConvertAccountNumber(accountNumber);
 
         CustomerData customer = _db.GetCustomer(validAccountNumber);
         
-        Console.Write("Login: ");
-        string login = Console.ReadLine();
+        string login = _userInput.Login();
         
-        Console.Write("Pin Code: ");
-        string pin = Console.ReadLine();
+        string pin = _userInput.PinCode();
         int validPin = _inputValidator.ConvertPIN(pin);
         
-        Console.Write("Holders Name: ");
-        string name = Console.ReadLine();
+        string name = _userInput.HoldersName();
         
         Console.WriteLine($"Balance: {customer.balance}");
         
-        Console.Write("Status: ");
-        string status = Console.ReadLine();
+        string status = _userInput.Status();
         bool active = _inputValidator.ConvertStatus(status);
         
         _db.UpdateAccount(validAccountNumber, login, validPin, name, active);

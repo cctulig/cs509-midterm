@@ -4,8 +4,7 @@ public class SearchAccountOption : MenuOption
 {
     protected override void Run()
     {
-        Console.Write("Enter the Account Number: ");
-        string accountNumber = Console.ReadLine();
+        string accountNumber = _userInput.AccountNumber();
         int validAccountNumber = _inputValidator.ConvertAccountNumber(accountNumber);
         
         CustomerData customer = _db.GetCustomer(validAccountNumber);

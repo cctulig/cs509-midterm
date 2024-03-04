@@ -6,8 +6,7 @@ public class WithdrawCashOption(int inCurrentAccountNumber) : CustomerOption(inC
     {
         int balance = _db.GetAccountBalance(_inCurrentAccountNumber);
         
-        Console.Write("Enter the withdrawal amount: ");
-        string withdrawAmount = Console.ReadLine();
+        string withdrawAmount = _userInput.WithdrawAmount();
         int validWithdrawAmount = _inputValidator.ConvertBalance(withdrawAmount);
         
         _inputValidator.ValidWithdrawAmount(validWithdrawAmount, balance);

@@ -8,6 +8,7 @@ public abstract class MenuOption
 {
     protected IDBConnection _db;
     protected IInputValidator _inputValidator;
+    protected IUserInput _userInput;
     protected LoginState _loginState = LoginState.SIGNED_IN;
 
     public MenuOption()
@@ -17,6 +18,7 @@ public abstract class MenuOption
         
         _db = kernel.Get<IDBConnection>();
         _inputValidator = kernel.Get<IInputValidator>();
+        _userInput = kernel.Get<IUserInput>();
     }
 
     public LoginState TryRun()
