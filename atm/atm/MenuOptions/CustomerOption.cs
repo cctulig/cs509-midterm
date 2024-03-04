@@ -1,6 +1,6 @@
 namespace atm;
 
-public abstract class CustomerOption(DBConnection inDb, InputValidator inInputValidator, int inCurrentAccountNumber) : MenuOption(inDb, inInputValidator)
+public abstract class CustomerOption(int inCurrentAccountNumber) : MenuOption
 {
     protected int _inCurrentAccountNumber = inCurrentAccountNumber;
 }

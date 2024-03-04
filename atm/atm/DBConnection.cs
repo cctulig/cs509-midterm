@@ -3,7 +3,7 @@ using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
 
-public class DBConnection
+public class DBConnection : IDBConnection
 {
     private MySqlConnection _connection;
     

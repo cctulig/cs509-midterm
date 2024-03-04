@@ -5,6 +5,7 @@ public class Bindings : NinjectModule
 {
     public override void Load()
     {
-        Bind<ILoginMenu>().To<LoginMenu>();
+        Bind<IDBConnection>().To<DBConnection>();
+        Bind<IInputValidator>().To<InputValidator>();
     }
 }

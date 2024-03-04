@@ -1,6 +1,6 @@
 namespace atm;
 
-public class WithdrawCashOption(DBConnection inDb, InputValidator inInputValidator, int inCurrentAccountNumber) : CustomerOption(inDb, inInputValidator, inCurrentAccountNumber)
+public class WithdrawCashOption(int inCurrentAccountNumber) : CustomerOption(inCurrentAccountNumber)
 {
     protected override void Run()
     {

@@ -1,6 +1,6 @@
 namespace atm;
 
-public class DisplayBalanceOption(DBConnection inDb, InputValidator inInputValidator, int inCurrentAccountNumber) : CustomerOption(inDb, inInputValidator, inCurrentAccountNumber)
+public class DisplayBalanceOption(int inCurrentAccountNumber) : CustomerOption(inCurrentAccountNumber)
 {
     protected override void Run()
     {

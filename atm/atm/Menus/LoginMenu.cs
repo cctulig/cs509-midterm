@@ -1,6 +1,9 @@
+using System.Reflection;
+using Ninject;
+
 namespace atm;
 
-public class LoginMenu : Menu, ILoginMenu
+public class LoginMenu : Menu
 {
     public override void Run()
     {

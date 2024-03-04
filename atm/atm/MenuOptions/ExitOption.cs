@@ -2,7 +2,7 @@ namespace atm;
 
 public class ExitOption : MenuOption
 {
-    public ExitOption(DBConnection inDb, InputValidator inInputValidator) : base(inDb, inInputValidator)
+    public ExitOption()
     {
         _loginState = LoginState.SIGNED_OUT;
     }

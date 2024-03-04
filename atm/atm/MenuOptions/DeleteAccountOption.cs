@@ -1,6 +1,6 @@
 namespace atm;
 
-public class DeleteAccountOption(DBConnection inDb, InputValidator inInputValidator) : MenuOption(inDb, inInputValidator)
+public class DeleteAccountOption : MenuOption
 {
     protected override void Run()
     {

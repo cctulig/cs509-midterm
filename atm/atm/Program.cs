@@ -9,10 +9,7 @@ class Program
     {
         Console.WriteLine("*** ATM Application ***\r\n");
         
-        var kernel = new StandardKernel();
-        kernel.Load(Assembly.GetExecutingAssembly());
-        ILoginMenu loginMenu = kernel.Get<ILoginMenu>();
-
+        LoginMenu loginMenu = new LoginMenu();
         loginMenu.Run();
     }
 }

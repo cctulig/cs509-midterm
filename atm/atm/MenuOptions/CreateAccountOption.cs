@@ -1,6 +1,6 @@
 namespace atm;
 
-public class CreateAccountOption(DBConnection inDb, InputValidator inInputValidator) : MenuOption(inDb, inInputValidator)
+public class CreateAccountOption() : MenuOption
 {
     protected override void Run()
     {
