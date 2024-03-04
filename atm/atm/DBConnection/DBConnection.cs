@@ -9,8 +9,8 @@ public class DBConnection : IDBConnection
     
     public DBConnection()
     {
-        string connStr = "server=localhost;user=root;database=cs509midterm;port=3306;password=a";
-        _connection = new MySqlConnection(connStr);
+            string connStr = "server=localhost;user=root;database=cs509midterm;port=3306;password=a";
+            _connection = new MySqlConnection(connStr);
     }
 
     public UserLoginData GetUserLogin(string login, int pin)
@@ -135,6 +135,8 @@ public class DBConnection : IDBConnection
 
     private void TryExecute(string sql, DynamicParameters parameters, string exceptionMsg)
     {
+        CheckConnectionState();
+        
         try
         {
             _connection.Execute(sql, parameters);
@@ -148,6 +150,8 @@ public class DBConnection : IDBConnection
     
     private T TryQueryFirst<T>(string sql, DynamicParameters parameters, string exceptionMsg)
     {
+        CheckConnectionState();
+        
         try
         {
             return _connection.QueryFirst<T>(sql, parameters);
@@ -155,6 +159,18 @@ public class DBConnection : IDBConnection
         catch (Exception e)
         {
             throw new DatabaseException(exceptionMsg);
+        }
+    }
+
+    private void CheckConnectionState()
+    {
+        try
+        {
+            _connection.Open();
+        }
+        catch (Exception e)
+        {
+            throw new DatabaseException("Warning database not connected!");
         }
     }
 }
