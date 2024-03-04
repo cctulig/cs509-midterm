@@ -2,12 +2,14 @@
 CS509 Software Engineering Class - ATM midterm project
 
 ### atm
-contains the console application
+Contains the console application
+
 Run Program.cs
 
 ### backend
-contains the sql dump of the mysql database
-make sure to update the connStr in DBConnection.cs to match your connection
+Contains the sql dump of the mysql database.
+
+Make sure to update the connStr in DBConnection.cs to match your connection.
 
 ### accounts
 login: admin
