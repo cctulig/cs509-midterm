@@ -1,6 +1,6 @@
 namespace atm;
 
-public class InputValidator
+public class InputValidator : IInputValidator
 {
     public int ConvertAccountNumber(string accountNumber)
     {

@@ -1,17 +1,16 @@
 namespace atm;
 
-public class DepositCashOption(DBConnection inDb, InputValidator inInputValidator, int inCurrentAccountNumber) : CustomerOption(inDb, inInputValidator, inCurrentAccountNumber)
+public class DepositCashOption(int currentAccountNumber) : CustomerOption(currentAccountNumber)
 {
     protected override void Run()
     {
-        int balance = _db.GetAccountBalance(_inCurrentAccountNumber);
+        int balance = db.GetAccountBalance(currentAccountNumber);
         
-        Console.Write("Enter the cash amount to deposit: ");
-        string depositAmount = Console.ReadLine();
-        int validDepositAmount = _inputValidator.ConvertBalance(depositAmount);
+        string depositAmount = userInput.DepositAmount();
+        int validDepositAmount = inputValidator.ConvertBalance(depositAmount);
 
-        int newBalance = _db.UpdateCustomerBalance(_inCurrentAccountNumber, balance + validDepositAmount);
+        int newBalance = db.UpdateCustomerBalance(currentAccountNumber, balance + validDepositAmount);
         
-        Console.WriteLine($"Cash Deposited Successfully.\nAccount #{_inCurrentAccountNumber}\nDate: 01/29/2024\nDeposited: {depositAmount}\nBalance: {newBalance}");
+        Console.WriteLine($"Cash Deposited Successfully.\nAccount #{currentAccountNumber}\nDate: {date.GetCurrentDate()}\nDeposited: {depositAmount}\nBalance: {newBalance}");
     }
 }

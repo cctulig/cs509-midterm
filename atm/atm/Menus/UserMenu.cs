@@ -16,11 +16,10 @@ public abstract class UserMenu : Menu
         
         while (loginState == LoginState.SIGNED_IN)
         {
-            Console.WriteLine(_optionsListText);
-            string optionIndex = Console.ReadLine();
+            string optionIndex = userInput.OptionIndex(_optionsListText);
             try
             {
-                int validOptionindex = _inputValidator.ConvertOptionIndex(optionIndex, 1, _optionMap.Count);
+                int validOptionindex = inputValidator.ConvertOptionIndex(optionIndex, 1, _optionMap.Count);
                 loginState = _optionMap[validOptionindex].TryRun();
             }
             catch (Exception e)

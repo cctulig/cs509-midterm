@@ -9,16 +9,13 @@ public class LoginMenu : Menu
             Console.WriteLine("--- Sign in! ---");
             UserMenu userMenu;
             
-            Console.Write("Enter login: ");
-            string login = Console.ReadLine();
-
-            Console.Write("Enter Pin code: ");
-            string pin = Console.ReadLine();
+            string login = userInput.Login();
+            string pin = userInput.PinCode();
             
             try
             {
-                int validPin = _inputValidator.ConvertPIN(pin);
-                UserLoginData userLoginData = _db.GetUserLogin(login, validPin);
+                int validPin = inputValidator.ConvertPIN(pin);
+                UserLoginData userLoginData = db.GetUserLogin(login, validPin);
                 
                 if (userLoginData.adminAccount)
                 {

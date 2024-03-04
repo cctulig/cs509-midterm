@@ -1,19 +1,18 @@
 namespace atm;
 
-public class WithdrawCashOption(DBConnection inDb, InputValidator inInputValidator, int inCurrentAccountNumber) : CustomerOption(inDb, inInputValidator, inCurrentAccountNumber)
+public class WithdrawCashOption(int currentAccountNumber) : CustomerOption(currentAccountNumber)
 {
     protected override void Run()
     {
-        int balance = _db.GetAccountBalance(_inCurrentAccountNumber);
+        int balance = db.GetAccountBalance(currentAccountNumber);
         
-        Console.Write("Enter the withdrawal amount: ");
-        string withdrawAmount = Console.ReadLine();
-        int validWithdrawAmount = _inputValidator.ConvertBalance(withdrawAmount);
+        string withdrawAmount = userInput.WithdrawAmount();
+        int validWithdrawAmount = inputValidator.ConvertBalance(withdrawAmount);
         
-        _inputValidator.ValidWithdrawAmount(validWithdrawAmount, balance);
+        inputValidator.ValidWithdrawAmount(validWithdrawAmount, balance);
         
-        int newBalance = _db.UpdateCustomerBalance(_inCurrentAccountNumber, balance - validWithdrawAmount);
+        int newBalance = db.UpdateCustomerBalance(currentAccountNumber, balance - validWithdrawAmount);
         
-        Console.WriteLine($"Cash Successfully Withdrawn\nAccount #{_inCurrentAccountNumber}\nDate: 01/29/2024\nWithdrawn: {validWithdrawAmount}\nBalance: {newBalance}");
+        Console.WriteLine($"Cash Successfully Withdrawn\nAccount #{currentAccountNumber}\nDate: {date.GetCurrentDate()}\nWithdrawn: {validWithdrawAmount}\nBalance: {newBalance}");
     }
 }

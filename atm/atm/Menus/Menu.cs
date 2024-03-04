@@ -1,14 +1,22 @@
+using System.Reflection;
+using Ninject;
+
 namespace atm;
 
 public abstract class Menu
 {
-    protected DBConnection _db;
-    protected InputValidator _inputValidator;
+    protected IDBConnection db;
+    protected IInputValidator inputValidator;
+    protected IUserInput userInput;
     
     public Menu()
     {
-        _db = new DBConnection();
-        _inputValidator = new InputValidator();
+        var kernel = new StandardKernel();
+        kernel.Load(Assembly.GetExecutingAssembly());
+        
+        db = kernel.Get<IDBConnection>();
+        inputValidator = kernel.Get<IInputValidator>();
+        userInput = kernel.Get<IUserInput>();
     }
 
     public abstract void Run();

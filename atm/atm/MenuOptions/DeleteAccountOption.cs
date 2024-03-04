@@ -1,22 +1,18 @@
 namespace atm;
 
-public class DeleteAccountOption(DBConnection inDb, InputValidator inInputValidator) : MenuOption(inDb, inInputValidator)
+public class DeleteAccountOption : MenuOption
 {
     protected override void Run()
     {
-        Console.Write("Enter the account number to which you want to delete: ");
+        string accountNumber = userInput.TryDeleteAccountNumber();
+        int validAccountNumber = inputValidator.ConvertAccountNumber(accountNumber);
 
-        string accountNumber = Console.ReadLine();
-        int validAccountNumber = _inputValidator.ConvertAccountNumber(accountNumber);
-
-        CustomerData customer = _db.GetCustomer(validAccountNumber);
+        CustomerData customer = db.GetCustomer(validAccountNumber);
         
-        Console.Write($"You wish to delete the account held by {customer.name}. If this information is correct, please re-enter the account number: ");
+        string accountNumber2 = userInput.ConfirmDeleteAccountNumber(customer.name);
+        inputValidator.AccountNumbersMatch(accountNumber, accountNumber2);
         
-        string accountNumber2 = Console.ReadLine();
-        _inputValidator.AccountNumbersMatch(accountNumber, accountNumber2);
-        
-        _db.DeleteAccount(validAccountNumber);
+        db.DeleteAccount(validAccountNumber);
         
         Console.WriteLine("Account Deleted Successfully");
     }

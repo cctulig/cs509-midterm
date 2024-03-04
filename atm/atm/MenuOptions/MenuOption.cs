@@ -1,17 +1,31 @@
+using System.Reflection;
+using Ninject;
+
 namespace atm;
 
 // Responsible for Console Read/Write for Options
-public abstract class MenuOption(DBConnection inDb, InputValidator inInputValidator)
+public abstract class MenuOption
 {
-    protected DBConnection _db = inDb;
-    protected InputValidator _inputValidator = inInputValidator;
-    protected LoginState _loginState = LoginState.SIGNED_IN;
+    protected IDBConnection db;
+    protected IInputValidator inputValidator;
+    protected IUserInput userInput;
+    protected LoginState loginState = LoginState.SIGNED_IN;
+
+    public MenuOption()
+    {
+        var kernel = new StandardKernel();
+        kernel.Load(Assembly.GetExecutingAssembly());
+        
+        db = kernel.Get<IDBConnection>();
+        inputValidator = kernel.Get<IInputValidator>();
+        userInput = kernel.Get<IUserInput>();
+    }
 
     public LoginState TryRun()
     {
        Run();
 
-        return _loginState;
+        return loginState;
     }
 
     protected abstract void Run();

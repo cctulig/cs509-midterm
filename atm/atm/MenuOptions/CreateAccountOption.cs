@@ -1,28 +1,23 @@
 namespace atm;
 
-public class CreateAccountOption(DBConnection inDb, InputValidator inInputValidator) : MenuOption(inDb, inInputValidator)
+public class CreateAccountOption() : MenuOption
 {
     protected override void Run()
     {
-        Console.Write("Login: ");
-        string login = Console.ReadLine();
+        string login = userInput.Login();
         
-        Console.Write("Pin Code: ");
-        string pin = Console.ReadLine();
-        int validPin = _inputValidator.ConvertPIN(pin);
+        string pin = userInput.PinCode();
+        int validPin = inputValidator.ConvertPIN(pin);
         
-        Console.Write("Holders Name: ");
-        string name = Console.ReadLine();
+        string name = userInput.HoldersName();
         
-        Console.Write("Starting Balance: ");
-        string startingBalance = Console.ReadLine();
-        int validBalance = _inputValidator.ConvertBalance(startingBalance);
+        string startingBalance = userInput.StartingBalance();
+        int validBalance = inputValidator.ConvertBalance(startingBalance);
         
-        Console.Write("Status: ");
-        string status = Console.ReadLine();
-        bool active = _inputValidator.ConvertStatus(status);
+        string status = userInput.Status();
+        bool active = inputValidator.ConvertStatus(status);
         
-        int accountId = _db.CreateAccount(login, validPin, name, validBalance, active);
+        int accountId = db.CreateAccount(login, validPin, name, validBalance, active);
 
         Console.WriteLine($"Account Successfully Created – the account number assigned is: {accountId}");
     }

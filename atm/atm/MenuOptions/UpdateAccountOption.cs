@@ -1,31 +1,26 @@
 namespace atm;
 
-public class UpdateAccountOption(DBConnection inDb, InputValidator inInputValidator) : MenuOption(inDb, inInputValidator)
+public class UpdateAccountOption  : MenuOption
 {
     protected override void Run()
     {
-        Console.Write("Enter the Account Number: ");
-        string accountNumber = Console.ReadLine();
-        int validAccountNumber = _inputValidator.ConvertAccountNumber(accountNumber);
+        string accountNumber = userInput.AccountNumber();
+        int validAccountNumber = inputValidator.ConvertAccountNumber(accountNumber);
 
-        CustomerData customer = _db.GetCustomer(validAccountNumber);
+        CustomerData customer = db.GetCustomer(validAccountNumber);
         
-        Console.Write("Login: ");
-        string login = Console.ReadLine();
+        string login = userInput.Login();
         
-        Console.Write("Pin Code: ");
-        string pin = Console.ReadLine();
-        int validPin = _inputValidator.ConvertPIN(pin);
+        string pin = userInput.PinCode();
+        int validPin = inputValidator.ConvertPIN(pin);
         
-        Console.Write("Holders Name: ");
-        string name = Console.ReadLine();
+        string name = userInput.HoldersName();
         
         Console.WriteLine($"Balance: {customer.balance}");
         
-        Console.Write("Status: ");
-        string status = Console.ReadLine();
-        bool active = _inputValidator.ConvertStatus(status);
+        string status = userInput.Status();
+        bool active = inputValidator.ConvertStatus(status);
         
-        _db.UpdateAccount(validAccountNumber, login, validPin, name, active);
+        db.UpdateAccount(validAccountNumber, login, validPin, name, active);
     }
 }
