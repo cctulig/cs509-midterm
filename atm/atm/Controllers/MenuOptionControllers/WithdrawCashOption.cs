@@ -1,7 +1,11 @@
 namespace atm;
 
-public class WithdrawCashOption(int currentAccountNumber) : CustomerOption(currentAccountNumber)
+public class WithdrawCashOption : CustomerOption
 {
+    public WithdrawCashOption(int inCurrentAccountNumber) : base(inCurrentAccountNumber)
+    { }
+    public WithdrawCashOption(int inCurrentAccountNumber, IDate I_date, IDBConnection I_db, IInputValidator I_inputValidator, IUserInput I_userInput) 
+        : base( inCurrentAccountNumber, I_date, I_db, I_inputValidator, I_userInput) {}
     protected override void Run()
     {
         int balance = db.GetAccountBalance(currentAccountNumber);
