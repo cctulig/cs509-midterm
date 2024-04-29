@@ -26,3 +26,7 @@ jobs:
       run: dotnet build atm --no-restore
     - name: Test
       run: dotnet test atm --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
