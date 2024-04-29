@@ -2,3 +2,5 @@
 /atm/.vs/*
 /atm/atm/obj/*
 /atm/atm/bin/*
+/atm/atm-test/obj/*
+/atm/atm-test/bin/*
