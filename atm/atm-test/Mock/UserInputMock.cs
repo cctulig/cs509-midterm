@@ -6,56 +6,67 @@ public class UserInputMock : IUserInput
 {
     public string Login()
     {
-        throw new NotImplementedException();
+        Console.Write("Login: ");
+        return "admin";
     }
 
     public string PinCode()
     {
-        throw new NotImplementedException();
+        Console.Write("Pin Code: ");
+        return "12345";
     }
 
     public string HoldersName()
     {
-        throw new NotImplementedException();
+        Console.Write("Holders Name: ");
+        return "Joe";
     }
 
     public string StartingBalance()
     {
-        throw new NotImplementedException();
+        Console.Write("Starting Balance: ");
+        return "0";
     }
 
     public string Status()
     {
-        throw new NotImplementedException();
+        Console.Write("Status: ");
+        return "Active";
     }
 
     public string TryDeleteAccountNumber()
     {
-        throw new NotImplementedException();
+        Console.Write("Enter the account number to which you want to delete: ");
+        return "2";
     }
-
+    
     public string ConfirmDeleteAccountNumber(string name)
     {
-        throw new NotImplementedException();
+        Console.Write($"You wish to delete the account held by {name}. If this information is correct, please re-enter the account number: ");
+        return "2";
     }
 
     public string DepositAmount()
     {
-        throw new NotImplementedException();
+        Console.Write("Enter the cash amount to deposit: ");
+        return "10";
     }
-
+    
     public string WithdrawAmount()
     {
-        throw new NotImplementedException();
+        Console.Write("Enter the withdrawal amount: ");
+        return "10";
     }
 
     public string AccountNumber()
     {
-        throw new NotImplementedException();
+        Console.Write("Enter the Account Number: ");
+        return "2";
     }
-
+    
     public string OptionIndex(string optionList)
     {
-        throw new NotImplementedException();
+        Console.Write(optionList);
+        return "1";
     }
 }

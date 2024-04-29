@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PL\ConsoleLogger\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="PL\" />
   </ItemGroup>
 
 </Project>
