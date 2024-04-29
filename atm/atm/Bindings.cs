@@ -1,5 +1,6 @@
-using atm;
 using Ninject.Modules;
+
+namespace atm;
 
 public class Bindings : NinjectModule
 {

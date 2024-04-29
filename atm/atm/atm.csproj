@@ -13,4 +13,9 @@
     <PackageReference Include="Ninject" Version="3.3.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="PL\" />
+  </ItemGroup>
+
 </Project>

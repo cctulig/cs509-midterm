@@ -85,7 +85,7 @@ public class InputValidator : IInputValidator
             throw new InvalidInputException($"Invalid option. You must select options {minIndex}-{maxIndex}");
         }
 
-        if (minIndex < 1 || maxIndex > 5)
+        if (validOptionIndex < minIndex || validOptionIndex > maxIndex)
         {
             throw new InvalidInputException($"Invalid option. You must select options {minIndex}-{maxIndex}");
         }

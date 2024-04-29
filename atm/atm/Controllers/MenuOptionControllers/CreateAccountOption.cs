@@ -1,7 +1,12 @@
 namespace atm;
 
-public class CreateAccountOption() : MenuOption
+public class CreateAccountOption : MenuOption
 {
+    public CreateAccountOption() : base() {}
+    public CreateAccountOption(IDBConnection I_db, IInputValidator I_inputValidator, IUserInput I_userInput) : base( I_db,
+        I_inputValidator, I_userInput) {
+    }
+
     protected override void Run()
     {
         string login = userInput.Login();

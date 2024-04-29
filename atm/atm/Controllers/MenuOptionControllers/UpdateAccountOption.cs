@@ -2,6 +2,10 @@ namespace atm;
 
 public class UpdateAccountOption  : MenuOption
 {
+    public UpdateAccountOption() : base() {}
+    public UpdateAccountOption(IDBConnection I_db, IInputValidator I_inputValidator, IUserInput I_userInput) : base( I_db,
+        I_inputValidator, I_userInput) {
+    }
     protected override void Run()
     {
         string accountNumber = userInput.AccountNumber();

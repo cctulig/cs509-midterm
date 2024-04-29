@@ -2,6 +2,11 @@ namespace atm;
 
 public class DeleteAccountOption : MenuOption
 {
+    public DeleteAccountOption() : base() {}
+    public DeleteAccountOption(IDBConnection I_db, IInputValidator I_inputValidator, IUserInput I_userInput) : base( I_db,
+        I_inputValidator, I_userInput) {
+    }
+    
     protected override void Run()
     {
         string accountNumber = userInput.TryDeleteAccountNumber();

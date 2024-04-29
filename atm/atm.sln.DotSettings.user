@@ -1,4 +1,10 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\cctul\.nuget\packages\dapper\2.1.28\lib\net7.0\Dapper.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9d0dbe71_002D2939_002D44c1_002Daa9c_002D07344f15d11a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="InputValidatorTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::6B3A35EE-6FF7-4A8F-BAB2-B4E9D09E4783::net8.0::atm_test.InputValidatorTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::6B3A35EE-6FF7-4A8F-BAB2-B4E9D09E4783::net8.0::atm_test.MenuOptionsTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

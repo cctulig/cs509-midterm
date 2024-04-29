@@ -2,6 +2,11 @@ namespace atm;
 
 public class SearchAccountOption : MenuOption
 {
+    public SearchAccountOption() : base() {}
+    public SearchAccountOption(IDBConnection I_db, IInputValidator I_inputValidator, IUserInput I_userInput) : base( I_db,
+        I_inputValidator, I_userInput) {
+    }
+    
     protected override void Run()
     {
         string accountNumber = userInput.AccountNumber();

@@ -20,6 +20,13 @@ public abstract class MenuOption
         inputValidator = kernel.Get<IInputValidator>();
         userInput = kernel.Get<IUserInput>();
     }
+    
+    public MenuOption(IDBConnection I_db, IInputValidator I_inputValidator, IUserInput I_userInput)
+    {
+        db = I_db;
+        inputValidator = I_inputValidator;
+        userInput = I_userInput;
+    }
 
     public LoginState TryRun()
     {
