@@ -48,6 +48,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
     - name: Upload to gdrive
       uses: adityak74/google-drive-upload-git-action@main
       with:
