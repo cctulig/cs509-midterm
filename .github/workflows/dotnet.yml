@@ -32,6 +32,16 @@ jobs:
       run: dotnet restore atm
     - name: Build
       run: dotnet build atm --no-restore
+
+    - name: Upload to gdrive
+      uses: adityak74/google-drive-upload-git-action@main
+      with:
+        credentials: ${{ secrets.credentials }}
+        filename: "atm/atm/bin/Debug/atm.xml"
+        folderId: ${{ secrets.folderId }}
+        overwrite: "true" # optional boolean
+
+      
     - name: Test
       run: dotnet test atm --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     - name: Codecov
