@@ -15,12 +15,12 @@ public abstract class MenuOption
     {
         var kernel = new StandardKernel();
         kernel.Load(Assembly.GetExecutingAssembly());
-        
+
         db = kernel.Get<IDBConnection>();
         inputValidator = kernel.Get<IInputValidator>();
         userInput = kernel.Get<IUserInput>();
     }
-    
+
     public MenuOption(IDBConnection I_db, IInputValidator I_inputValidator, IUserInput I_userInput)
     {
         db = I_db;
@@ -30,7 +30,7 @@ public abstract class MenuOption
 
     public LoginState TryRun()
     {
-       Run();
+        Run();
 
         return loginState;
     }

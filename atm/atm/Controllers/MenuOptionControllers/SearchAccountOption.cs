@@ -2,19 +2,20 @@ namespace atm;
 
 public class SearchAccountOption : MenuOption
 {
-    public SearchAccountOption() : base() {}
-    public SearchAccountOption(IDBConnection I_db, IInputValidator I_inputValidator, IUserInput I_userInput) : base( I_db,
-        I_inputValidator, I_userInput) {
+    public SearchAccountOption() : base() { }
+    public SearchAccountOption(IDBConnection I_db, IInputValidator I_inputValidator, IUserInput I_userInput) : base(I_db,
+        I_inputValidator, I_userInput)
+    {
     }
-    
+
     protected override void Run()
     {
         string accountNumber = userInput.AccountNumber();
         int validAccountNumber = inputValidator.ConvertAccountNumber(accountNumber);
-        
+
         CustomerData customer = db.GetCustomer(validAccountNumber);
         UserLoginData userLoginData = db.GetUserLogin(validAccountNumber);
-        
+
         Console.WriteLine($"Account # {customer.Id}\nHolder: {customer.name}\nBalance: {customer.balance}\nActive: {FormatActive(customer.active)}\nLogin: {userLoginData.login}\nPin Code: {userLoginData.pin}");
     }
 

@@ -28,7 +28,7 @@ public class InputValidator : IInputValidator
         {
             throw new InvalidInputException("Pin must be a number");
         }
-        
+
         if (validPin < 10000 || validPin > 99999)
         {
             throw new InvalidInputException("Pin must be between 10000 and 99999");
@@ -43,7 +43,7 @@ public class InputValidator : IInputValidator
         {
             throw new InvalidInputException("Balance must be a number");
         }
-        
+
         if (validBalance < 0)
         {
             throw new InvalidInputException("Balance must be at least 0");

@@ -11,11 +11,11 @@ public abstract class UserMenu : Menu
     {
         _optionMap = new Dictionary<int, MenuOption>();
     }
-    
+
     public override void Run()
     {
         LoginState loginState = LoginState.SIGNED_IN;
-        
+
         while (loginState == LoginState.SIGNED_IN)
         {
             string optionIndex = userInput.OptionIndex(_optionsListText);

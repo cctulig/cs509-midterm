@@ -28,7 +28,7 @@ public class MenuOptionsTest
         Assert.Equal(expectedOutputStr, writer.ToString());
         Assert.Equal(LoginState.SIGNED_IN, loginState);
     }
-    
+
     [Fact]
     public void TestDeleteAccountOption()
     {
@@ -49,7 +49,7 @@ public class MenuOptionsTest
         Assert.Equal(expectedOutputStr, writer.ToString());
         Assert.Equal(LoginState.SIGNED_IN, loginState);
     }
-    
+
     [Fact]
     public void TestDepositCashOption()
     {
@@ -73,7 +73,7 @@ public class MenuOptionsTest
         Assert.Equal(expectedOutputStr, writer.ToString());
         Assert.Equal(LoginState.SIGNED_IN, loginState);
     }
-    
+
     [Fact]
     public void TestDisplayBalanceOption()
     {
@@ -97,7 +97,7 @@ public class MenuOptionsTest
         Assert.Equal(expectedOutputStr, writer.ToString());
         Assert.Equal(LoginState.SIGNED_IN, loginState);
     }
-    
+
     [Fact]
     public void TestExitOption()
     {
@@ -117,7 +117,7 @@ public class MenuOptionsTest
         Assert.Equal(expectedOutputStr, writer.ToString());
         Assert.Equal(LoginState.SIGNED_OUT, loginState);
     }
-    
+
     [Fact]
     public void TestSearchAccountOption()
     {
@@ -133,12 +133,12 @@ public class MenuOptionsTest
 
         LoginState loginState = option.TryRun();
 
-        string expectedOutputStr = 
+        string expectedOutputStr =
             "Enter the Account Number: Account # 2\nHolder: customer1\nBalance: 0\nActive: Active\nLogin: admin\nPin Code: 12345\r\n";
         Assert.Equal(expectedOutputStr, writer.ToString());
         Assert.Equal(LoginState.SIGNED_IN, loginState);
     }
-    
+
     [Fact]
     public void TestUpdateAccountOption()
     {
@@ -154,12 +154,12 @@ public class MenuOptionsTest
 
         LoginState loginState = option.TryRun();
 
-        string expectedOutputStr = 
+        string expectedOutputStr =
             "Enter the Account Number: Login: Pin Code: Holders Name: Balance: 0\r\nStatus: ";
         Assert.Equal(expectedOutputStr, writer.ToString());
         Assert.Equal(LoginState.SIGNED_IN, loginState);
     }
-    
+
     [Fact]
     public void TestWithdrawCashOption()
     {

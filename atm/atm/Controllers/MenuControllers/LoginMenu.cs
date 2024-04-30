@@ -10,15 +10,15 @@ public class LoginMenu : Menu
         {
             Console.WriteLine("--- Sign in! ---");
             UserMenu userMenu;
-            
+
             string login = userInput.Login();
             string pin = userInput.PinCode();
-            
+
             try
             {
                 int validPin = inputValidator.ConvertPIN(pin);
                 UserLoginData userLoginData = db.AttemptSignIn(login, validPin);
-                
+
                 if (userLoginData.adminAccount)
                 {
                     userMenu = new AdminMenu();
@@ -33,7 +33,7 @@ public class LoginMenu : Menu
                 Console.WriteLine(e.Message);
                 continue;
             }
-            
+
             userMenu.Run();
         }
     }

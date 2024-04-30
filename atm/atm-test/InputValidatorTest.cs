@@ -12,7 +12,7 @@ public class InputValidatorTest
 
         inputValidator.ConvertAccountNumber("1").Should().Be(1);
     }
-    
+
     [Fact]
     public void TestConvertAccountNumber_a()
     {
@@ -22,7 +22,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Account number must be a number");
     }
-    
+
     [Fact]
     public void TestAccountNumbersMatch_1_1()
     {
@@ -30,7 +30,7 @@ public class InputValidatorTest
 
         inputValidator.AccountNumbersMatch("1", "1").Should().Be(true);
     }
-    
+
     [Fact]
     public void TestAccountNumbersMatch_1_2()
     {
@@ -40,7 +40,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Second account number does not match first account number");
     }
-    
+
     [Fact]
     public void TestConvertPIN_10000()
     {
@@ -48,7 +48,7 @@ public class InputValidatorTest
 
         inputValidator.ConvertPIN("10000").Should().Be(10000);
     }
-    
+
     [Fact]
     public void TestConvertPIN_99999()
     {
@@ -56,7 +56,7 @@ public class InputValidatorTest
 
         inputValidator.ConvertPIN("99999").Should().Be(99999);
     }
-    
+
     [Fact]
     public void TestConvertPIN_a()
     {
@@ -66,7 +66,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Pin must be a number");
     }
-    
+
     [Fact]
     public void TestConvertPIN_9999()
     {
@@ -76,7 +76,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Pin must be between 10000 and 99999");
     }
-    
+
     [Fact]
     public void TestConvertPIN_100000()
     {
@@ -86,7 +86,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Pin must be between 10000 and 99999");
     }
-    
+
     [Fact]
     public void TestConvertBalance_0()
     {
@@ -94,7 +94,7 @@ public class InputValidatorTest
 
         inputValidator.ConvertBalance("0").Should().Be(0);
     }
-    
+
     [Fact]
     public void TestConvertBalance_a()
     {
@@ -104,7 +104,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Balance must be a number");
     }
-    
+
     [Fact]
     public void TestConvertBalance_negative1()
     {
@@ -114,7 +114,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Balance must be at least 0");
     }
-    
+
     [Fact]
     public void TestConvertStatus_Active()
     {
@@ -122,7 +122,7 @@ public class InputValidatorTest
 
         inputValidator.ConvertStatus("Active").Should().Be(true);
     }
-    
+
     [Fact]
     public void TestConvertStatus_Disabled()
     {
@@ -130,7 +130,7 @@ public class InputValidatorTest
 
         inputValidator.ConvertStatus("Disabled").Should().Be(false);
     }
-    
+
     [Fact]
     public void TestConvertStatus_a()
     {
@@ -140,7 +140,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Status must either be 'Active' or 'Disabled'");
     }
-    
+
     [Fact]
     public void TestValidWithdrawAmount_1_from_2()
     {
@@ -148,7 +148,7 @@ public class InputValidatorTest
 
         inputValidator.ValidWithdrawAmount(1, 2).Should().Be(true);
     }
-    
+
     [Fact]
     public void TestValidWithdrawAmount_2_from_1()
     {
@@ -158,7 +158,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Withdrawn amount exceeds current balance");
     }
-    
+
     [Fact]
     public void TestConvertOptionIndex_1_between_0_and_2()
     {
@@ -166,7 +166,7 @@ public class InputValidatorTest
 
         inputValidator.ConvertOptionIndex("1", 0, 2).Should().Be(1);
     }
-    
+
     [Fact]
     public void TestConvertOptionIndex_a_between_0_and_2()
     {
@@ -176,7 +176,7 @@ public class InputValidatorTest
         action.Should().Throw<InvalidInputException>()
             .WithMessage("Invalid option. You must select options 0-2");
     }
-    
+
     [Fact]
     public void TestConvertOptionIndex_3_between_0_and_2()
     {

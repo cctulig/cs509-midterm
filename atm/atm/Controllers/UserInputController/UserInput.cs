@@ -37,7 +37,7 @@ public class UserInput : IUserInput
         Console.Write("Enter the account number to which you want to delete: ");
         return Console.ReadLine();
     }
-    
+
     public string ConfirmDeleteAccountNumber(string name)
     {
         Console.Write($"You wish to delete the account held by {name}. If this information is correct, please re-enter the account number: ");
@@ -49,7 +49,7 @@ public class UserInput : IUserInput
         Console.Write("Enter the cash amount to deposit: ");
         return Console.ReadLine();
     }
-    
+
     public string WithdrawAmount()
     {
         Console.Write("Enter the withdrawal amount: ");
@@ -61,7 +61,7 @@ public class UserInput : IUserInput
         Console.Write("Enter the Account Number: ");
         return Console.ReadLine();
     }
-    
+
     public string OptionIndex(string optionList)
     {
         Console.Write(optionList);
