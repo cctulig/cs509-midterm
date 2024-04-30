@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  debug:
     runs-on: windows-latest
 
     steps:
@@ -29,8 +29,8 @@ jobs:
       
     - name: Restore dependencies
       run: dotnet restore atm
-    - name: Build
-      run: dotnet build atm --no-restore
+    - name: Build - Debug
+      run: dotnet build atm --no-restore -c "Debug"
       
     - name: Test
       run: dotnet test atm --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
@@ -41,6 +41,19 @@ jobs:
         directory: atm/atm-test
         token: ${{ secrets.CODECOV_TOKEN }}
   
+  release:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore atm
+    - name: Build - Release
+      run: dotnet build atm --no-restore -c "Release"
+
   documentation:
     runs-on: ubuntu-latest
     
