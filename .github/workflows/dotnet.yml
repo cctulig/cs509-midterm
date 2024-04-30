@@ -82,17 +82,14 @@ jobs:
     - name: Run Doxygen
       run: doxygen Doxyfile-config
     - name: LS
-      run: |
-        ls
-        ls atm
-        ls atm/atm
+      run: ls atm
     - name: Zip Doxygen
-      run: zip -r doxygen.zip atm/html/*
+      run: zip -r doxygen.zip atm/html
     - name: Upload Doxygen to gdrive
       uses: adityak74/google-drive-upload-git-action@main
       with:
         credentials: ${{ secrets.credentials }}
-        filename: "atm/doxygen.zip"
+        filename: "doxygen.zip"
         mirrorDirectoryStructure: "true"
         folderId: ${{ secrets.folderId }}
         overwrite: "true" # optional boolean
