@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
@@ -33,13 +32,7 @@ jobs:
     - name: Build
       run: dotnet build atm --no-restore
 
-    - name: Upload to gdrive
-      uses: adityak74/google-drive-upload-git-action@main
-      with:
-        credentials: ${{ secrets.credentials }}
-        filename: "atm/atm/bin/Debug/atm.xml"
-        folderId: ${{ secrets.folderId }}
-        overwrite: "true" # optional boolean
+    
 
       
     - name: Test
@@ -50,3 +43,15 @@ jobs:
         file: coverage.opencover.xml
         directory: atm/atm-test
         token: ${{ secrets.CODECOV_TOKEN }}
+  
+  documentation:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Upload to gdrive
+      uses: adityak74/google-drive-upload-git-action@main
+      with:
+        credentials: ${{ secrets.credentials }}
+        filename: "README.md"
+        folderId: ${{ secrets.folderId }}
+        overwrite: "true" # optional boolean
