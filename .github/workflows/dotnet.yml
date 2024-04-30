@@ -72,3 +72,17 @@ jobs:
         filename: "atm/atm/bin/Debug/atm.xml"
         folderId: ${{ secrets.folderId }}
         overwrite: "true" # optional boolean
+
+    - name: Install Doxygen
+      run: sudo apt-get install doxygen
+    - name: Run Doxygen
+      run: doxygen Doxyfile-config
+    - name: Upload Doxygen to gdrive
+      uses: adityak74/google-drive-upload-git-action@main
+      with:
+        credentials: ${{ secrets.credentials }}
+        filename: "atm/html/*"
+        mirrorDirectoryStructure: "true"
+        folderId: ${{ secrets.folderId }}
+        overwrite: "true" # optional boolean
+      
