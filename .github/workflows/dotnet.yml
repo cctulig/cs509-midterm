@@ -101,7 +101,6 @@ jobs:
       with:
         credentials: ${{ secrets.credentials }}
         filename: "doxygen.zip"
-        mirrorDirectoryStructure: "true"
         folderId: ${{ secrets.folderId }}
         overwrite: "true" # optional boolean
       
