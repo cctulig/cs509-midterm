@@ -50,10 +50,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Upload to gdrive
+    - name: Upload README to gdrive
       uses: adityak74/google-drive-upload-git-action@main
       with:
         credentials: ${{ secrets.credentials }}
         filename: "README.md"
+        folderId: ${{ secrets.folderId }}
+        overwrite: "true" # optional boolean
+    - name: Upload Docs to gdrive
+      uses: adityak74/google-drive-upload-git-action@main
+      with:
+        credentials: ${{ secrets.credentials }}
+        filename: "*/atm.xml"
         folderId: ${{ secrets.folderId }}
         overwrite: "true" # optional boolean
