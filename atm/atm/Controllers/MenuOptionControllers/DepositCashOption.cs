@@ -3,6 +3,9 @@ using Ninject;
 
 namespace atm;
 
+/// <summary>
+/// Handles communicating with View, input validation, and DAL communication for DepositCashOption
+/// </summary>
 public class DepositCashOption : CustomerOption
 {
     public DepositCashOption(int inCurrentAccountNumber) : base(inCurrentAccountNumber)

@@ -1,5 +1,8 @@
 namespace atm;
 
+/// <summary>
+/// Handles communicating with View, input validation, and DAL communication for SearchAccountOption
+/// </summary>
 public class SearchAccountOption : MenuOption
 {
     public SearchAccountOption() : base() { }

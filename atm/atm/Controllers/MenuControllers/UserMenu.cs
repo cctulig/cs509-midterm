@@ -2,6 +2,9 @@ using atm.Exceptions;
 
 namespace atm;
 
+/// <summary>
+/// Defines the MenuOptions present for a user
+/// </summary>
 public abstract class UserMenu : Menu
 {
     protected Dictionary<int, MenuOption> _optionMap;

@@ -1,5 +1,8 @@
 namespace atm;
 
+/// <summary>
+/// Handles communicating with View, input validation, and DAL communication for WithdrawCashOption
+/// </summary>
 public class WithdrawCashOption : CustomerOption
 {
     public WithdrawCashOption(int inCurrentAccountNumber) : base(inCurrentAccountNumber)

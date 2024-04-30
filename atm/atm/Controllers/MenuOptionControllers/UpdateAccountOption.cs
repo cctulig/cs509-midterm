@@ -1,5 +1,8 @@
 namespace atm;
 
+/// <summary>
+/// Handles communicating with View, input validation, and DAL communication for UpdateAccountOption
+/// </summary>
 public class UpdateAccountOption : MenuOption
 {
     public UpdateAccountOption() : base() { }

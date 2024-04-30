@@ -3,6 +3,9 @@ using Ninject;
 
 namespace atm;
 
+/// <summary>
+/// Handles communicating with View, input validation, and DAL communication for CustomerOption
+/// </summary>
 public abstract class CustomerOption : MenuOption
 {
     protected int currentAccountNumber;

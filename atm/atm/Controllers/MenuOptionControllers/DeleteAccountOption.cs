@@ -1,5 +1,8 @@
 namespace atm;
 
+/// <summary>
+/// Handles communicating with View, input validation, and DAL communication for DeleteAccountOption
+/// </summary>
 public class DeleteAccountOption : MenuOption
 {
     public DeleteAccountOption() : base() { }

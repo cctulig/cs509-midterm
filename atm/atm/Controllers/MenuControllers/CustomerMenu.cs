@@ -1,6 +1,9 @@
 
 namespace atm;
 
+/// <summary>
+/// Defines the MenuOptions present for an Customer user
+/// </summary>
 public class CustomerMenu : UserMenu
 {
     public CustomerMenu(int inAccountNumber) : base()

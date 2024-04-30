@@ -3,6 +3,9 @@ using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
 
+/// <summary>
+/// DAL for DB requests
+/// </summary>
 public class DBConnection : IDBConnection
 {
     private MySqlConnection _connection;
@@ -18,6 +21,12 @@ public class DBConnection : IDBConnection
         _connection = new MySqlConnection(connStr);
     }
 
+    /// <summary>
+    /// Gets user from DB that matches provided login and pin
+    /// </summary>
+    /// <param name="login"></param>
+    /// <param name="pin"></param>
+    /// <returns>Found user</returns>
     public UserLoginData GetUserLogin(string login, int pin)
     {
         var getUserParameters = new DynamicParameters();
@@ -28,6 +37,11 @@ public class DBConnection : IDBConnection
             "Unable to find user");
     }
 
+    /// <summary>
+    /// Gets user from DB that matches provided accountNumber
+    /// </summary>
+    /// <param name="accountNumber"></param>
+    /// <returns>Found user</returns>
     public UserLoginData GetUserLogin(int accountNumber)
     {
         var getUserParameters = new DynamicParameters();
@@ -37,6 +51,15 @@ public class DBConnection : IDBConnection
             "Unable to find user");
     }
 
+    /// <summary>
+    /// Creates account on DB with the provided data
+    /// </summary>
+    /// <param name="login"></param>
+    /// <param name="pin"></param>
+    /// <param name="name"></param>
+    /// <param name="startingBalance"></param>
+    /// <param name="active"></param>
+    /// <returns>Account Number</returns>
     public int CreateAccount(string login, int pin, string name, int startingBalance, bool active)
     {
         var createUserParameters = new DynamicParameters();
@@ -54,6 +77,10 @@ public class DBConnection : IDBConnection
         return userLoginData.Id;
     }
 
+    /// <summary>
+    /// Deletes account from the DB with the provided accountNumber
+    /// </summary>
+    /// <param name="accountNumber"></param>
     public void DeleteAccount(int accountNumber)
     {
         var deleteUserParameters = new DynamicParameters();
@@ -62,6 +89,11 @@ public class DBConnection : IDBConnection
         TryExecute("BEGIN; DELETE FROM customer WHERE id=@id; DELETE FROM userlogin WHERE id=@id; COMMIT;", deleteUserParameters, $"Unable to delete user with account number {accountNumber}");
     }
 
+    /// <summary>
+    /// Checks if the provided accountNumber exists in the DB
+    /// </summary>
+    /// <param name="accountNumber"></param>
+    /// <returns>True if the accountNumber exists</returns>
     public bool ValidAccountNumber(int accountNumber)
     {
         var getUserParameters = new DynamicParameters();
@@ -73,6 +105,11 @@ public class DBConnection : IDBConnection
         return true;
     }
 
+    /// <summary>
+    /// Gets the account balance for the user with the provided accountNumber in the DB
+    /// </summary>
+    /// <param name="accountNumber"></param>
+    /// <returns>Account Balance</returns>
     public int GetAccountBalance(int accountNumber)
     {
         var getUserParameters = new DynamicParameters();
@@ -81,6 +118,14 @@ public class DBConnection : IDBConnection
         return TryQueryFirst<int>("SELECT balance FROM customer WHERE id=@id;", getUserParameters, $"Could not get account balance for account number {accountNumber}");
     }
 
+    /// <summary>
+    /// Updates account with provided accountNumber on the DB to have provided data
+    /// </summary>
+    /// <param name="accountNumber"></param>
+    /// <param name="login"></param>
+    /// <param name="pin"></param>
+    /// <param name="name"></param>
+    /// <param name="active"></param>
     public void UpdateAccount(int accountNumber, string login, int pin, string name, bool active)
     {
         var updateUserParameters = new DynamicParameters();
@@ -100,6 +145,11 @@ public class DBConnection : IDBConnection
         TryExecute("UPDATE customer set name=@name, active=@active WHERE id=@id;", updateCustomerParameters, $"Unable to update account number {accountNumber}");
     }
 
+    /// <summary>
+    /// Gets customer with the provided accountNumber from the DB
+    /// </summary>
+    /// <param name="accountNumber"></param>
+    /// <returns>Found Customer</returns>
     public CustomerData GetCustomer(int accountNumber)
     {
         var getCustomerParameters = new DynamicParameters();
@@ -108,6 +158,12 @@ public class DBConnection : IDBConnection
         return TryQueryFirst<CustomerData>("SELECT * FROM customer WHERE id=@id;", getCustomerParameters, $"Unable to get customer for account number {accountNumber}");
     }
 
+    /// <summary>
+    /// Updates the balance of the customer with the provided accountNumber in the DB to the newBalance
+    /// </summary>
+    /// <param name="accountNumber"></param>
+    /// <param name="newBalance"></param>
+    /// <returns>New Balance</returns>
     public int UpdateCustomerBalance(int accountNumber, int newBalance)
     {
         var updateCustomerParameters = new DynamicParameters();
@@ -119,6 +175,12 @@ public class DBConnection : IDBConnection
         return newBalance;
     }
 
+    /// <summary>
+    /// Attempts to find the user in the DB with the provided login and pin
+    /// </summary>
+    /// <param name="login"></param>
+    /// <param name="pin"></param>
+    /// <returns>Found User</returns>
     public UserLoginData AttemptSignIn(string login, int pin)
     {
         UserLoginData loginData = GetUserLogin(login, pin);

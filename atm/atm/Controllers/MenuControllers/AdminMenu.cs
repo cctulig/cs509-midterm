@@ -1,5 +1,8 @@
 namespace atm;
 
+/// <summary>
+/// Defines the MenuOptions present for an Admin user
+/// </summary>
 public class AdminMenu : UserMenu
 {
     public AdminMenu() : base()

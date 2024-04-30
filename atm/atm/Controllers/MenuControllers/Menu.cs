@@ -3,6 +3,13 @@ using Ninject;
 
 namespace atm;
 
+/// <summary>
+/// Menus are responsible for:
+/// - informing the View which menu to display,
+/// - handling user input,
+/// - sending user input to the DAL,
+/// - navigating to Menus and MenuOptions
+/// </summary>
 public abstract class Menu
 {
     protected IDBConnection db;
@@ -19,5 +26,8 @@ public abstract class Menu
         userInput = kernel.Get<IUserInput>();
     }
 
+    /// <summary>
+    /// Runs the Menu
+    /// </summary>
     public abstract void Run();
 }

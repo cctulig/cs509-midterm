@@ -3,7 +3,9 @@ using Ninject;
 
 namespace atm;
 
-// Responsible for Console Read/Write for Options
+/// <summary>
+/// Handles communicating with View, input validation, and DAL communication for MenuOptions
+/// </summary>
 public abstract class MenuOption
 {
     protected IDBConnection db;

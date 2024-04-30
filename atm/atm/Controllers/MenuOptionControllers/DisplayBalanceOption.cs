@@ -1,5 +1,8 @@
 namespace atm;
 
+/// <summary>
+/// Handles communicating with View, input validation, and DAL communication for DisplayBalanceOption
+/// </summary>
 public class DisplayBalanceOption : CustomerOption
 {
     public DisplayBalanceOption(int inCurrentAccountNumber) : base(inCurrentAccountNumber)
