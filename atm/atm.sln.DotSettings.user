@@ -8,5 +8,6 @@
     &lt;TestId&gt;xUnit::6B3A35EE-6FF7-4A8F-BAB2-B4E9D09E4783::net8.0::atm_test.MenuOptionsTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::6B3A35EE-6FF7-4A8F-BAB2-B4E9D09E4783::net8.0::atm_test.DBConnectionTest.TestValidAccountNumber_1&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::6B3A35EE-6FF7-4A8F-BAB2-B4E9D09E4783::net8.0::atm_test.DBConnectionTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::6B3A35EE-6FF7-4A8F-BAB2-B4E9D09E4783::net8.0::atm_test.UserInputTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
