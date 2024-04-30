@@ -26,7 +26,7 @@ jobs:
     - name: Install dotnet format
       run: dotnet tool update --global dotnet-format
     - name: Run dotnet format
-      run: dotnet format atm --check --verbosity diagnostic
+      run: dotnet format atm --verify-no-changes --verbosity diagnostic
       
     - name: Restore dependencies
       run: dotnet restore atm
