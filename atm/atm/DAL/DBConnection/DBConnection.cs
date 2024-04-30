@@ -13,6 +13,11 @@ public class DBConnection : IDBConnection
         _connection = new MySqlConnection(connStr);
     }
 
+    public DBConnection(string connStr)
+    {
+        _connection = new MySqlConnection(connStr);
+    }
+
     public UserLoginData GetUserLogin(string login, int pin)
     {
         var getUserParameters = new DynamicParameters();
