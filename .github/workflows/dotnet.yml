@@ -50,6 +50,25 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Add dotnet-format problem matcher
+      uses: xt0rted/dotnet-format-problem-matcher@v1
+    - name: Install dotnet format
+      run: dotnet tool update --global dotnet-format
+    - name: Run dotnet format
+      run: dotnet format atm --verify-no-changes --verbosity diagnostic
+      
+    - name: Restore dependencies
+      run: dotnet restore atm
+    - name: Build
+      run: dotnet build atm --no-restore --debug
+
+      
     - name: Upload README to gdrive
       uses: adityak74/google-drive-upload-git-action@main
       with:
@@ -61,6 +80,6 @@ jobs:
       uses: adityak74/google-drive-upload-git-action@main
       with:
         credentials: ${{ secrets.credentials }}
-        filename: "*/atm.xml"
+        filename: "atm/atm/bin/Debug/atm.xml"
         folderId: ${{ secrets.folderId }}
         overwrite: "true" # optional boolean
